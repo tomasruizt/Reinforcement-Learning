@@ -6,6 +6,7 @@ results/
 
 # test_stuff
 script_to_teststuff.py
+delme/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

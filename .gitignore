@@ -4,6 +4,9 @@
 # Experiment results
 results/
 
+# test_stuff
+script_to_teststuff.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

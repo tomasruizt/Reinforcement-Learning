@@ -24,7 +24,7 @@ class TenTimesTenEnvironment(Environment):
                 actions_available.append(action)
         return actions_available
 
-    def get_new_state_and_reward(self, action_taken, state_current):
+    def get_response(self, action_taken, state_current):
         if state_current == self._state_final:
             raise GameFinished
 
@@ -39,5 +39,11 @@ class TenTimesTenEnvironment(Environment):
 
         return state_new, actions_available_new, reward
 
-    def get_initial_state_and_reward(self):
-        return self._state_initial, self._actions_available[self._state_initial], 0
+    def get_initial_state(self):
+        return self._state_initial
+
+    def get_initial_actions_available(self):
+        return self._actions_available[self._state_initial]
+
+    def get_initial_reward(self):
+        return 0

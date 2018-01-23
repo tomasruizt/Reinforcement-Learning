@@ -11,12 +11,15 @@ def simulate(
     information = []
     for _ in range(runs):
         try:
-            state_new, available_actions_new, reward = environment.get_initial_state_and_reward()
+            state_new = environment.get_initial_state()
+            available_actions_new = environment.get_initial_actions_available()
+            reward = environment.get_initial_reward()
+
             for __ in range(iterations_per_run):
                 agent.observe(state_new, available_actions_new, reward)
                 state_current, action = agent.take_action()
                 state_new, available_actions_new, reward = \
-                    environment.get_new_state_and_reward(action, state_current)
+                    environment.get_response(action, state_current)
         except GameFinished:
             pass
         results.append(agent.get_history())

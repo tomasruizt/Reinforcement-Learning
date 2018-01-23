@@ -1,8 +1,14 @@
 class Environment:
-    def get_new_state_and_reward(self, action, current_state):
+    def get_response(self, action, current_state) -> EnvironmentResponse:
         raise NotImplementedError
 
-    def get_initial_state_and_reward(self):
+    def get_initial_state(self):
+        raise NotImplementedError
+
+    def get_initial_actions_available(self):
+        raise NotImplementedError
+
+    def get_initial_reward(self):
         raise NotImplementedError
 
 
@@ -47,3 +53,10 @@ class Policy:
         :return: pair (idx, new_estimation)
         """
         raise NotImplemented
+
+
+class EnvironmentResponse:
+    def __init__(self, state, actions_available, reward):
+        self.state = state
+        self.actions_available = actions_available
+        self.reward = reward

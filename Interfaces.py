@@ -1,3 +1,10 @@
+class EnvironmentResponse:
+    def __init__(self, state, actions_available, reward):
+        self.state = state
+        self.actions_available = actions_available
+        self.reward = reward
+
+
 class Environment:
     def get_response(self, action, current_state) -> EnvironmentResponse:
         raise NotImplementedError
@@ -54,9 +61,3 @@ class Policy:
         """
         raise NotImplemented
 
-
-class EnvironmentResponse:
-    def __init__(self, state, actions_available, reward):
-        self.state = state
-        self.actions_available = actions_available
-        self.reward = reward

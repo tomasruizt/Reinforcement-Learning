@@ -31,20 +31,30 @@ class BlackjackGame:
         player_score = sum([min(card.value) for card in player_cards])
         return player_score < 22
 
-    # TODO: Document this class
-    def simulate_and_return_player_cards(self) -> List[List[Card]]:
+    def play_game(self) -> List[List[Card]]:
         """
-
-        :return:
+        Plays a round of of blackjack with the list of Players that were passed
+        in the constructor, in the list's order. For each player while wants_new_card()
+        returns true and they have not lost, the game will give them a new card.
+        :return: A list with the hands of each player, in the order they were passed
+        in the constructor.
         """
-        all_player_cards = []
+        all_player_hands = []
         for player in self._players:
-            current_player_cards = []
-            while self.player_score_under_22(current_player_cards) and player.wants_new_card():
-                if not self._shuffled_deck.cards_remaining():
-                    all_player_cards.append(current_player_cards)
-                    return all_player_cards
-                new_card = self._shuffled_deck.draw_card()
-                player.accept_card(card=new_card)
-                current_player_cards.append(new_card)
-            all_player_cards.append(current_player_cards)
+            current_player_hand = self.take_turn(player)
+            all_player_hands.append(current_player_hand)
+        return all_player_hands
+
+    def take_turn(self, player: Player) -> List:
+        current_player_hand = []
+        for _ in range(2): self.give_new_card(player, current_player_hand)
+        while self.player_score_under_22(current_player_hand) and player.wants_new_card():
+            self.give_new_card(player, current_player_hand)
+        return current_player_hand
+
+    def give_new_card(self, player: Player, hand: List[Card]):
+        if not self._shuffled_deck.cards_remaining():
+            raise Exception("No more cards remain for player to keep drawing.")
+        new_card = self._shuffled_deck.draw_card()
+        player.accept_card(card=new_card)
+        hand.append(new_card)

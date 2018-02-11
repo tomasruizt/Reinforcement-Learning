@@ -56,3 +56,12 @@ class PokerCardsDeckTest(unittest.TestCase):
 
         self.assertIn(1, card.value)
         self.assertIn(11, card.value)
+
+    def test_cards_remaining(self):
+        deck = PokerCardsDeck()
+        for _ in range(51):
+            deck.draw_card()
+
+        self.assertTrue(deck.cards_remaining())
+        deck.draw_card()
+        self.assertFalse(deck.cards_remaining())

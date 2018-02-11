@@ -32,6 +32,5 @@ class PokerCardsDeck:
         else:
             return None
 
-    # TODO: Test this method
     def cards_remaining(self) -> bool:
         return len(self._remaining_cards) > 0

@@ -12,8 +12,8 @@ class TDLambda(Estimator):
         self._learning_rate = learning_rate
         self._lambda = _lambda
 
-    def estimate(self, key):
-        return self._estimate[key]
+    def estimate(self, state):
+        return self._estimate[state]
 
     def update_estimate(self, state_reward_pairs):
         """

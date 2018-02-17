@@ -44,7 +44,7 @@ class Estimator:
     def update_estimate(self, state_reward_pairs):
         raise NotImplementedError
 
-    def estimate(self, key):
+    def estimate(self, state, action=None):
         raise NotImplementedError
 
     def get_information(self):
@@ -54,7 +54,7 @@ class Estimator:
 class Policy:
     def select_action(self, action_state_estimate_triplets):
         """
-        Selects an appropate action to take.
+        Selects an appropriate action to take.
         :param action_state_estimate_triplets: triplets of the form
         (action, new_state, estimate) for the policy to choose from.
         :return: pair (idx, new_estimation)

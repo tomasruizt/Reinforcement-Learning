@@ -21,8 +21,8 @@ class MonteCarlo(Estimator):
                 estimate_old=self._estimation[state],
                 estimate_sample=mc_value_estimation)
 
-    def estimate(self, key):
-        return self._estimation[key]
+    def estimate(self, state):
+        return self._estimation[state]
 
     def get_information(self):
         return self._estimation.copy()

@@ -5,7 +5,7 @@ import numpy as np
 from rl.estimation_updater.EstimationUpdater import EstimationUpdater
 from rl.utils.UpdateRules import DifferentialUpdate, UpdateRule
 
-# TODO: esitmate() does not comply to superclass interface.
+# TODO: does not comply to EstimationUpdater interface.
 class MonteCarlo(EstimationUpdater):
     def __init__(self, update_rule: UpdateRule=DifferentialUpdate(), initial_value_estimate=0):
         self._estimation = defaultdict(lambda: initial_value_estimate)

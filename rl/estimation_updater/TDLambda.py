@@ -5,7 +5,7 @@ import numpy as np
 
 from rl.estimation_updater.EstimationUpdater import EstimationUpdater
 
-# TODO: Match the signature of Estimator
+# TODO: Match the signature of EstimationUpdater
 class TDLambda(EstimationUpdater):
     def __init__(self, initial_estimation=0, learning_rate=repeat(0.05), _lambda=0.9):
         self._estimate = defaultdict(lambda: initial_estimation)

@@ -1,7 +1,7 @@
 import unittest
 
-from Components.Estimators.MonteCarlo import MonteCarlo
-from Components.RL_utils.UpdateRules import RunningAverage
+from rl.estimator.MonteCarlo import MonteCarlo
+from rl.utils.UpdateRules import RunningAverage
 
 
 class MonteCarloTest(unittest.TestCase):

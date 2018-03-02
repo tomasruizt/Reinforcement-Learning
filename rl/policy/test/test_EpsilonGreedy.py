@@ -1,7 +1,7 @@
 import unittest
 from itertools import zip_longest, repeat
 
-from Components.Policies.EpsilonGreedy import EpsilonGreedy
+from rl.policy.EpsilonGreedy import EpsilonGreedy
 
 import numpy as np
 

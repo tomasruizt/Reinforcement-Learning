@@ -3,9 +3,9 @@ from itertools import repeat
 
 import numpy as np
 
-from Components.Interfaces import Estimator
+from rl.interfaces import Estimator
 
-
+# TODO: Match the signature of Estimator
 class TDLambda(Estimator):
     def __init__(self, initial_estimation=0, learning_rate=repeat(0.05), _lambda=0.9):
         self._estimate = defaultdict(lambda: initial_estimation)

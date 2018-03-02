@@ -1,6 +1,6 @@
 import numpy as np
 
-from ActionSelector.ActionSelector import ActionSelector
+from rl.action_selector.ActionSelector import ActionSelector
 
 
 class SoftmaxSelector(ActionSelector):

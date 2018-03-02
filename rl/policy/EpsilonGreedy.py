@@ -2,7 +2,7 @@ from itertools import repeat
 
 import numpy as np
 
-from Components.Interfaces import Policy
+from rl.interfaces import Policy
 
 
 class EpsilonGreedy(Policy):

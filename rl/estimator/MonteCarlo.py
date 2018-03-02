@@ -2,8 +2,8 @@ from collections import defaultdict
 
 import numpy as np
 
-from Components.Interfaces import Estimator
-from Components.RL_utils.UpdateRules import DifferentialUpdate, UpdateRule
+from rl.interfaces import Estimator
+from rl.utils.UpdateRules import DifferentialUpdate, UpdateRule
 
 # TODO: esitmate() does not comply to superclass interface.
 class MonteCarlo(Estimator):

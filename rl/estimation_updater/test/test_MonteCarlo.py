@@ -1,6 +1,6 @@
 import unittest
 
-from rl.estimator.MonteCarlo import MonteCarlo
+from rl.estimation_updater.MonteCarlo import MonteCarlo
 from rl.utils.UpdateRules import RunningAverage
 
 

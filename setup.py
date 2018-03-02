@@ -1,5 +1,6 @@
 from distutils.core import setup
 
+
 setup(
     name="rl",
     version="1.0",

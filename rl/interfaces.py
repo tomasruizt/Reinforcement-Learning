@@ -40,17 +40,6 @@ class Agent:
         raise NotImplementedError
 
 
-class Estimator:
-    def update_estimate(self, state_reward_pairs):
-        raise NotImplementedError
-
-    def estimate(self, state, action=None):
-        raise NotImplementedError
-
-    def get_information(self):
-        raise NotImplementedError
-
-
 class Policy:
     def select_action(self, action_state_estimate_triplets):
         """

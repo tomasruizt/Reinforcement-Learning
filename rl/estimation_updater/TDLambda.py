@@ -3,10 +3,10 @@ from itertools import repeat
 
 import numpy as np
 
-from rl.interfaces import Estimator
+from rl.estimation_updater.EstimationUpdater import EstimationUpdater
 
 # TODO: Match the signature of Estimator
-class TDLambda(Estimator):
+class TDLambda(EstimationUpdater):
     def __init__(self, initial_estimation=0, learning_rate=repeat(0.05), _lambda=0.9):
         self._estimate = defaultdict(lambda: initial_estimation)
         self._learning_rate = learning_rate

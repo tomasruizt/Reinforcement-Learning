@@ -1,6 +1,6 @@
 import unittest
 
-from rl.estimation_updater.MonteCarlo import MonteCarlo
+from rl.learning_strategy.EmpiricalMonteCarlo import EmpiricalMonteCarlo
 from rl.utils.UpdateRules import RunningAverage
 
 
@@ -11,7 +11,7 @@ class MonteCarloTest(unittest.TestCase):
         rewards = range(len(states))
         events = list(zip(states, rewards))
 
-        estimator = MonteCarlo(update_rule=RunningAverage())
+        estimator = EmpiricalMonteCarlo(update_rule=RunningAverage())
         estimator.update_estimate(events)
 
         for idx, state in enumerate(states):

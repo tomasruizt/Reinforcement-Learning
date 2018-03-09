@@ -12,32 +12,9 @@ class Environment:
     def get_initial_state(self):
         raise NotImplementedError
 
-    def get_initial_actions_available(self):
-        raise NotImplementedError
-
-    def get_initial_reward(self):
-        raise NotImplementedError
-
 
 class GameFinished(Exception):
     pass
-
-
-class Agent:
-    def take_action(self):
-        raise NotImplementedError
-
-    def observe(self, state_new, actions_available_new, reward):
-        raise NotImplementedError
-
-    def game_finished(self):
-        raise NotImplementedError
-
-    def get_history(self):
-        raise NotImplementedError
-
-    def get_information(self):
-        raise NotImplementedError
 
 
 class Policy:

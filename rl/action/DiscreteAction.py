@@ -1,6 +1,6 @@
-class Action:
+class DiscreteAction:
     """
-    A simple representation for an action with a name.
+    A simple representation of a discrete action with a name.
     """
 
     def __init__(self, name: str):

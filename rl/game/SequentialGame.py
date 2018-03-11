@@ -8,7 +8,10 @@ from rl.state import DiscreteState
 
 class SequentialGame:
     """
-    Game where the agent takes decisions sequentially.
+    Game where the agent takes decisions sequentially. At every step, the Agents see the Environment state it is
+    located in, chooses an action and transitions to a new state of the Environment. The Environment rewards the
+    Agent's action with some scalar value. This process is repeated until the Agent reaches a terminal state of the
+    Environment.
     """
 
     def __init__(self, agent: DiscreteAgent, environment: DiscreteEnvironment):
@@ -37,7 +40,7 @@ class SequentialGame:
         """
         Makes the Agent take a single choice and return an episode that describes the interaction with the environment.
         :param from_state: The state from which the Agent will make a choice.
-        :return: The Episode describing the Agent-Environment interactions.
+        :return: The Episode describing the Agent-Environment interaction.
         """
         agent_choice = self._agent.choose_action(from_state)
         episode = self._environment.evaluate_agent_choice(agent_choice)

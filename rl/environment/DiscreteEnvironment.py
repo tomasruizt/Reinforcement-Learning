@@ -1,5 +1,3 @@
-from typing import Iterable, Set
-
 from rl.agent_choice import DiscreteAgentChoice
 from rl.episode import DiscreteEpisode
 from rl.state import DiscreteState

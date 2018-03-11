@@ -19,7 +19,7 @@ class DiscreteAgent:
     def observe_episode(self, episode: DiscreteEpisode):
         """
         Observes an Episode to learn from it.
-        :param episode: The episode with all the necessary information.
+        :param episode: An object containing all the information necessary for learning algorithms.
         :return: None
         """
         raise NotImplementedError

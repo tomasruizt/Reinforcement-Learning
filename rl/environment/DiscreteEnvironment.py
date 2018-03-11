@@ -1,3 +1,5 @@
+from typing import Iterable, Set
+
 from rl.agent_choice import DiscreteAgentChoice
 from rl.episode import DiscreteEpisode
 from rl.state import DiscreteState
@@ -13,6 +15,14 @@ class DiscreteEnvironment:
         """
         Retrieve an initial State, for the Agent to begin interacting.
         :return: The initial state.
+        """
+        raise NotImplementedError
+
+    def is_state_final(self, state: DiscreteState) -> bool:
+        """
+        Evaluate whether the input state is final
+        :param state: State to evaluate.
+        :return: True if state is a final state.
         """
         raise NotImplementedError
 

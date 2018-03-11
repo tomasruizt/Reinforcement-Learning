@@ -5,14 +5,14 @@ from rl.action import DiscreteAction
 
 class DiscreteState:
     """
-    Simple representation of a discrete state with a name and its corresponding action space.
+    Simple State with a discrete state representation and its corresponding action space.
     """
 
-    def __init__(self, name: str, action_space: Iterable[DiscreteAction]):
+    def __init__(self, representation, action_space: Iterable[DiscreteAction]):
         """
         Initializes a state with the given name and action space.
-        :param name: The name of the state
+        :param representation: Discrete representation of the state.
         :param action_space: An iterable of actions that the agent can choose from.
         """
-        self.name = name
+        self.representation = representation
         self.action_space = action_space

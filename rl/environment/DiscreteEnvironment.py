@@ -5,8 +5,8 @@ from rl.state import DiscreteState
 
 class DiscreteEnvironment:
     """
-    The environment interacts with the agent and evaluates its choices. This environment works with discrete states
-    and actions.
+    The environment interacts with the agent and evaluates its choices.
+    This environment works with discrete states and actions.
     """
 
     def get_initial_state(self) -> DiscreteState:
@@ -16,17 +16,11 @@ class DiscreteEnvironment:
         """
         raise NotImplementedError
 
-    def is_state_final(self, state: DiscreteState) -> bool:
+    def evaluate_agent_choice(self, choice: DiscreteAgentChoice) -> \
+            DiscreteEpisode:
         """
-        Evaluate whether the input state is final
-        :param state: State to evaluate.
-        :return: True if state is a final state.
-        """
-        raise NotImplementedError
-
-    def evaluate_agent_choice(self, choice: DiscreteAgentChoice) -> DiscreteEpisode:
-        """
-        Evaluates the agent's choice and return an Episode describing the entire interaction.
+        Evaluates the agent's choice and return an Episode describing
+        the entire interaction.
         :param choice: The agent's choice.
         :return: The episode with the interaction.
         """

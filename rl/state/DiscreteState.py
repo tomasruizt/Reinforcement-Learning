@@ -16,4 +16,7 @@ class DiscreteState:
         choose from.
         """
         self.action_space = action_space
+
+    def is_final(self) -> bool:
+        """Tells whether this state is final or not"""
         raise NotImplementedError

@@ -1,14 +1,3 @@
-from collections import defaultdict
-from typing import List
-
-import numpy as np
-
-from rl.utils.UpdateRules import DifferentialUpdate, UpdateRule
-from rl.value_approximator.ContextFreeValueApproximator import ContextFreeValueApproximator
-
-from rl.value_approximator.StateActionValues import StateActionValues
-
-
 class MonteCarlo(ContextFreeValueApproximator):
     def __init__(self, update_rule: UpdateRule=DifferentialUpdate(), initial_value_estimate=0):
         self._state_action_values = defaultdict(lambda: initial_value_estimate)

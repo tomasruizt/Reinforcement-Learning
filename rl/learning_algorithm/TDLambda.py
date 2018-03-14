@@ -1,11 +1,3 @@
-from collections import defaultdict
-from itertools import repeat
-
-import numpy as np
-
-from rl.learning_strategy.ValueUpdateStrategy import ValueUpdateStrategy
-
-# TODO: Match the signature of EstimationUpdater
 class TDLambda(ValueUpdateStrategy):
     def __init__(self, initial_estimation=0, learning_rate=repeat(0.05), _lambda=0.9):
         self._estimate = defaultdict(lambda: initial_estimation)

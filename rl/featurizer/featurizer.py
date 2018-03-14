@@ -1,3 +1,5 @@
+import numpy
+from rl.action import DiscreteActionFeatures
 from rl.state import DiscreteState
 
 
@@ -20,12 +22,12 @@ class DiscreteFeaturizer:
     them in nonlinear ways to output the scalar feature.
     """
 
-    def featurize(self, state: DiscreteState):
+    def featurize(self, state: DiscreteState) -> DiscreteActionFeatures:
         """
         Maps the input state to features that the corresponding ML model
         can understand.
         :param state: The state whose features we want.
-        :return: The features, which could be a scalar, an
-        n-dimenstional array or other.
+        :return: An object containing each action in the action space
+        and its corresponding features.
         """
         raise NotImplementedError

@@ -5,4 +5,4 @@
 * Should a ValueUpdateStrategy offer the get_information() API? It may be necessary to implement both a contextual linear model as well a a context-free model before seeing how the APIs are similar.
 ## Testing
 * Test the SequentialGame
-
+* Test action_scores validation

@@ -1,5 +1,7 @@
 from typing import Sequence
 
+import numpy
+
 from rl.action import DiscreteAction
 
 
@@ -27,3 +29,5 @@ class DiscreteActionScores:
         assert actions_size == probabilities_size, \
             "Length of input 'actions' (%d) and of input 'scores' (%d)" \
             " is different." % (actions_size, probabilities_size)
+        if isinstance(scores, numpy.ndarray):
+            assert len(scores.shape) == 1

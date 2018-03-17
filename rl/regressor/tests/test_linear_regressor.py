@@ -17,8 +17,7 @@ class LinearRegressorTest(unittest.TestCase):
         action_scores = regressor.predict(action_features)
 
         for score in action_scores.scores:
-            dim_score = len(score)
-            self.assertEqual(dim_score, 1)  # Is scalar
+            self.assertIsInstance(score, float)
 
     def test_predict_does_linear_regression(self):
         action_features = self._init_action_features()

@@ -39,7 +39,7 @@ class SGDLinearRegressor(Regressor):
             self._init_w(features_dim=len(action_features.features[0]))
 
         scores = self._calculate_scores(action_features.features)
-        return DiscreteActionScores(action_features.actions, scores)
+        return DiscreteActionScores(action_features.actions, scores.flatten())
 
     def fit(self, fitting_data: FittingData):
         if self._weights is None:

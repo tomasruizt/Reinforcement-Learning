@@ -1,1 +1,2 @@
 from rl.explorator.discrete_explorator import DiscreteExplorator
+from rl.explorator.epsilon_greedy import EpsilonGreedy

@@ -1,7 +1,7 @@
 import unittest
 from itertools import zip_longest
 
-from rl.policy.UCB import UCB
+from rl.old_lib.UCB import UCB
 
 
 class UCBTest(unittest.TestCase):

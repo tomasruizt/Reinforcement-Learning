@@ -5,7 +5,7 @@ from math import sqrt, log
 
 import numpy as np
 
-from rl.interfaces import Policy
+from rl.old_lib.interfaces import Policy
 
 # TODO: UCB ought to score actions but not select them.
 class UCB(Policy):

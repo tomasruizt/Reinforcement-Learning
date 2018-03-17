@@ -28,6 +28,8 @@ class EpsilonGreedy(DiscreteExplorator):
 
     def choose_action(self, action_scores: DiscreteActionScores) -> \
             DiscreteAction:
+        assert action_scores is not None, "Input 'action_scores' should not " \
+                                          "be None."
         current_exploration_probability = next(self._exploration_rate)
         assert 0 <= current_exploration_probability <= 1
 

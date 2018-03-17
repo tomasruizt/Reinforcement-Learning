@@ -3,7 +3,7 @@ import unittest
 import math
 from numpy import random
 
-from rl.utils.Softmax import softmax
+from rl.old_lib.utils.Softmax import softmax
 
 
 class SoftmaxTest(unittest.TestCase):

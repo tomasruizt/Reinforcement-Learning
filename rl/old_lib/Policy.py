@@ -1,4 +1,4 @@
-from rl.policy.ActionDistribution import ActionDistribution
+from rl.old_lib.ActionDistribution import ActionDistribution
 
 
 class Policy:

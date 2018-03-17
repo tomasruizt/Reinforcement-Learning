@@ -1,6 +1,6 @@
 import unittest
 
-from rl.utils.UpdateRules import RunningAverage
+from rl.old_lib.utils.UpdateRules import RunningAverage
 
 @unittest.SkipTest
 class MonteCarloTest(unittest.TestCase):

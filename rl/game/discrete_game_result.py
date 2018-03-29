@@ -19,4 +19,7 @@ class DiscreteGameResult:
         """Validate that the input is not empty"""
         assert episodes is not None, "Input should not be None."
         assert len(episodes) >= 1, "Input 'episodes' should have at least " \
-                                   "one episode."
+                                   "one element."
+        for episode in episodes:
+            assert isinstance(episode, DiscreteEpisode), "Input 'episodes' " \
+                "should contain only episodes, but contains: '%s'." % episode

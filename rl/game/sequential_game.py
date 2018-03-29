@@ -2,7 +2,6 @@ from typing import Iterable
 
 from rl.agent import DiscreteAgent
 from rl.environment import DiscreteEnvironment
-from rl.episode import DiscreteEpisode
 from rl.game import DiscreteGameResult
 
 
@@ -24,6 +23,10 @@ class SequentialGame:
         :param environment: The Environment where the Agent will take
         decisions.
         """
+        assert agent is not None, "Constructor input 'agent' should not be " \
+                                  "None."
+        assert environment is not None, "Constructor input 'environment' " \
+                                        "should not be None."
         self._agent = agent
         self._environment = environment
         self._current_game_episodes = []
@@ -46,6 +49,7 @@ class SequentialGame:
         :return: A list of GameResults. Each GameResult describes the
         result of a single Game played.
         """
+        assert times >= 1, "Input 'times' should be at least one."
         return [self.play_once() for _ in range(times)]
 
     def _setup_new_game(self):

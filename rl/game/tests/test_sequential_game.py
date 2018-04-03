@@ -3,8 +3,9 @@ from unittest.mock import MagicMock
 
 from rl.agent import DiscreteAgent
 from rl.environment import DiscreteEnvironment
-from rl.episode import DiscreteEpisode
-from rl.game import SequentialGame, DiscreteGameResult
+from rl.episode import Episode
+from rl.experience_tuple import ExperienceTuple
+from rl.game import SequentialGame
 from rl.state import DiscreteState
 
 
@@ -20,60 +21,61 @@ class SequentialGameTest(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, expected_regex):
             SequentialGame(agent=MagicMock(), environment=None)
 
-    def test_play_once_returns_one_game_result(self):
-        game = self._get_game_with_single_episode()
-        game_result = game.play_once()
+    def test_play_one_episode_returns_one_episode(self):
+        game = self._get_game_with_minimal_episodes()
+        episode = game.play_one_episode()
 
-        self.assertIsInstance(game_result, DiscreteGameResult)
+        self.assertIsInstance(episode, Episode)
 
-    def test_play_once_calls_environment_get_initial_state(self):
-        game = self._get_game_with_single_episode()
-        game.play_once()
+    def test_play_one_episode_calls_environment_get_initial_state(self):
+        game = self._get_game_with_minimal_episodes()
+        game.play_one_episode()
         game._environment.get_initial_state.assert_called_once()
 
-    def test_play_once_calls_environment_evaluate_agent_choice(self):
-        game = self._get_game_with_single_episode()
-        game.play_once()
+    def test_play_one_episode_calls_environment_evaluate_agent_choice(self):
+        game = self._get_game_with_minimal_episodes()
+        game.play_one_episode()
         game._environment.evaluate_agent_choice.assert_called_once()
 
-    def test_play_once_calls_agent_choose_action(self):
-        game = self._get_game_with_single_episode()
-        game.play_once()
+    def test_play_one_episode_calls_agent_choose_action(self):
+        game = self._get_game_with_minimal_episodes()
+        game.play_one_episode()
         game._agent.choose_action.assert_called_once()
 
-    def test_play_once_calls_agent_observe_episode(self):
-        game = self._get_game_with_single_episode()
-        game.play_once()
-        game._agent.observe_episode.assert_called_once()
+    def test_play_one_episode_calls_agent_observe_experience_tuple(self):
+        game = self._get_game_with_minimal_episodes()
+        game.play_one_episode()
+        game._agent.observe_experience_tuple.assert_called_once()
 
-    def test_play_multiple_times_returns_multiple_game_results(self):
-        expected_game_results = 4
-        game = self._get_game_with_single_episode()
+    def test_play_multiple_episodes_returns_multiple_episodes(self):
+        expected_number_of_episodes = 4
+        game = self._get_game_with_minimal_episodes()
 
-        games_results = game.play_multiple_times(expected_game_results)
-        self.assertEqual(expected_game_results, len(games_results))
-        for game_result in games_results:
-            self.assertIsInstance(game_result, DiscreteGameResult)
+        episodes = game.play_multiple_episodes(expected_number_of_episodes)
+        self.assertEqual(expected_number_of_episodes, len(episodes))
+        for episode in episodes:
+            self.assertIsInstance(episode, Episode)
 
     # Auxiliary methods
 
-    def _get_game_with_single_episode(self):
+    def _get_game_with_minimal_episodes(self):
         agent = MagicMock(spec=DiscreteAgent)
-        environment = self._get_environment_with_a_single_episode()
+        environment = self._get_environment_with_minimal_episodes()
         game = SequentialGame(agent, environment)
         return game
 
-    def _get_environment_with_a_single_episode(self):
+    def _get_environment_with_minimal_episodes(self):
         environment = MagicMock(spec=DiscreteEnvironment)
         environment.get_initial_state.return_value = self._get_non_final_state()
-        final_episode = self._get_episode_with_final_end_state()
-        environment.evaluate_agent_choice.return_value = final_episode
+        final_experience_tuple = \
+            self._get_experience_tuple_with_final_end_state()
+        environment.evaluate_agent_choice.return_value = final_experience_tuple
         return environment
 
-    def _get_episode_with_final_end_state(self):
-        non_final_episode = MagicMock(spec=DiscreteEpisode)
-        non_final_episode.end_state = self._get_final_state()
-        return non_final_episode
+    def _get_experience_tuple_with_final_end_state(self):
+        final_experience_tuple = MagicMock(spec=ExperienceTuple)
+        final_experience_tuple.end_state = self._get_final_state()
+        return final_experience_tuple
 
     @staticmethod
     def _get_non_final_state():

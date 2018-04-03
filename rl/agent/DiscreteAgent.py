@@ -1,5 +1,5 @@
 from rl.agent_choice import DiscreteAgentChoice
-from rl.episode import DiscreteEpisode
+from rl.experience_tuple import ExperienceTuple
 from rl.state import DiscreteState
 
 
@@ -16,10 +16,12 @@ class DiscreteAgent:
         """
         raise NotImplementedError
 
-    def observe_episode(self, episode: DiscreteEpisode):
+    def observe_experience_tuple(self, experience_tuple: ExperienceTuple) -> \
+            None:
         """
-        Observes an Episode to learn from it.
-        :param episode: An object containing all the information necessary for learning algorithms.
+        Observes an ExperienceTuple to learn from it.
+        :param experience_tuple: An object containing all the information
+        necessary for learning algorithms.
         :return: None
         """
         raise NotImplementedError

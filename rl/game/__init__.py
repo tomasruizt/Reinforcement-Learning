@@ -1,2 +1,1 @@
-from rl.game.discrete_game_result import DiscreteGameResult
 from rl.game.sequential_game import SequentialGame

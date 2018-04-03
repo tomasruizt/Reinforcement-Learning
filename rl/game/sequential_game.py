@@ -1,8 +1,9 @@
-from typing import Iterable
+from typing import List
 
 from rl.agent import DiscreteAgent
 from rl.environment import DiscreteEnvironment
-from rl.game import DiscreteGameResult
+from rl.episode import Episode
+from rl.experience_tuple import ExperienceTuple
 
 
 class SequentialGame:
@@ -29,45 +30,45 @@ class SequentialGame:
                                         "should not be None."
         self._agent = agent
         self._environment = environment
-        self._current_game_episodes = []
+        self._current_episodes_experience_tuples = []
         self._current_state = None
 
-    def play_once(self) -> DiscreteGameResult:
+    def play_one_episode(self) -> Episode:
         """
-        Makes the Agent play the Game once in the Environment.
-        :return: The GameResult describing the single game played.
+        Makes the Agent play a single Episode in the Environment.
+        :return: The single Episode played.
         """
-        self._setup_new_game()
+        self._setup_new_episode()
         while not self._current_state.is_final():
             self._move_to_next_state()
-        return DiscreteGameResult(episodes=self._current_game_episodes)
+        return Episode(self._current_episodes_experience_tuples)
 
-    def play_multiple_times(self, times: int) -> Iterable[DiscreteGameResult]:
+    def play_multiple_episodes(self, number_of_episodes: int) -> List[Episode]:
         """
-        Makes the Agent play the Game multiple times in the Environment.
-        :param times: Number of times to play the game.
-        :return: A list of GameResults. Each GameResult describes the
-        result of a single Game played.
+        Makes the Agent play multiple Episodes in the Environment.
+        :param number_of_episodes: Number of Episodes to play.
+        :return: A list of the played Episodes.
         """
-        assert times >= 1, "Input 'times' should be at least one."
-        return [self.play_once() for _ in range(times)]
+        assert number_of_episodes >= 1, "Input 'number_of_episodes' should " \
+                                        "be at least one."
+        return [self.play_one_episode() for _ in range(number_of_episodes)]
 
-    def _setup_new_game(self):
-        self._current_game_episodes = []
+    def _setup_new_episode(self):
+        self._current_episodes_experience_tuples = []
         self._current_state = self._environment.get_initial_state()
 
     def _move_to_next_state(self):
         """
         Makes the Agent move from the current state to the next state
-        and logs the transition in current_game_episodes.
+        and logs the transition.
         :return: None
         """
         agent_choice = self._agent.choose_action(state=self._current_state)
-        episode = self._environment.evaluate_agent_choice(agent_choice)
-        self._agent.observe_episode(episode)
+        experience_tuple = self._environment.evaluate_agent_choice(agent_choice)
+        self._agent.observe_experience_tuple(experience_tuple)
 
-        self._log_episode(episode)
-        self._current_state = episode.end_state
+        self._log_experience_tuple(experience_tuple)
+        self._current_state = experience_tuple.end_state
 
-    def _log_episode(self, episode):
-        self._current_game_episodes.append(episode)
+    def _log_experience_tuple(self, experience_tuple: ExperienceTuple):
+        self._current_episodes_experience_tuples.append(experience_tuple)

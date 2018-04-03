@@ -1,5 +1,5 @@
 from rl.agent_choice import DiscreteAgentChoice
-from rl.episode import DiscreteEpisode
+from rl.experience_tuple import ExperienceTuple
 from rl.state import DiscreteState
 
 
@@ -17,11 +17,11 @@ class DiscreteEnvironment:
         raise NotImplementedError
 
     def evaluate_agent_choice(self, choice: DiscreteAgentChoice) -> \
-            DiscreteEpisode:
+            ExperienceTuple:
         """
-        Evaluates the agent's choice and return an Episode describing
-        the entire interaction.
+        Evaluates the agent's choice and return an experience tuple
+        describing the entire interaction.
         :param choice: The agent's choice.
-        :return: The episode with the interaction.
+        :return: The corresponding experience tuple.
         """
         raise NotImplementedError

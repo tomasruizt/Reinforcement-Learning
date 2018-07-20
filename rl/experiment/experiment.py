@@ -19,7 +19,7 @@ class Experiment:
         """
         assert configuration is not None
         self._configuration = configuration
-        self._game = game if game else self._get_new_game()
+        self._game = game if game else self._setup_new_game()
         self._writer = writer
         self._played_episodes = []
         self._serialized_episodes = []
@@ -34,7 +34,9 @@ class Experiment:
         self._serialize_episodes()
         self._save_episodes_to_disk()
 
-    # Private methods
+    def _reset_episodes(self):
+        self._played_episodes = []
+        self._serialized_episodes = []
 
     def _play_episodes(self):
         num_of_episodes = self._configuration.num_of_episodes
@@ -52,11 +54,7 @@ class Experiment:
         basedir = self._configuration.results_directory
         self._writer.save_to_json_file(self._serialized_episodes, basedir)
 
-    def _get_new_game(self):
+    def _setup_new_game(self):
         agent = self._configuration.agent
         environment = self._configuration.environment
         return SequentialGame(agent, environment)
-
-    def _reset_episodes(self):
-        self._played_episodes = []
-        self._serialized_episodes = []

@@ -17,6 +17,11 @@ class FittingData:
         :param targets: A numpy array of size (N, 1) with a single
         scalar target for each sample in the input variables.
         """
-        assert len(variables) == len(targets)
+        assert len(variables) == len(targets), self._get_error_msg(
+            len(variables), len(targets))
         self.variables = variables
         self.targets = targets
+
+    @staticmethod
+    def _get_error_msg(num_vars, num_tars) -> str:
+        return f"Variables: {num_vars}. Targets: {num_tars}"

@@ -15,7 +15,7 @@ class LinearRegressorTest(unittest.TestCase):
 
         action_scores = regressor.predict(action_features)
 
-        for score in action_scores.scores:
+        for score in action_scores.values():
             self.assertIsInstance(score, float)
 
     def test_predict_does_linear_regression(self):
@@ -24,18 +24,18 @@ class LinearRegressorTest(unittest.TestCase):
         regressor = SGDLinearRegressor(weights)
 
         action_scores = regressor.predict(action_features)
-        for score, features in zip(action_scores.scores,
-                                   action_features.values()):
+        for action, features in action_features.items():
+            score = action_scores[action]
             expected_score = features.dot(weights[:-1]) + weights[-1]
             self.assertAlmostEqual(expected_score, score, delta=self.PRECISION)
 
     def test_predict_input_actions_are_preserved(self):
         action_features = self._init_action_features()
-        regressor = SGDLinearRegressor()
-        action_scores = regressor.predict(action_features)
+        action_scores = SGDLinearRegressor().predict(action_features)
 
-        expected_actions = action_features.keys()
-        self.assertEqual(set(expected_actions), set(action_scores.actions))
+        input_actions = action_features.keys()
+        output_actions = action_scores.keys()
+        self.assertEqual(input_actions, output_actions)
 
     def test_fit_updates_using_sgd(self):
         learning_rate = 0.01

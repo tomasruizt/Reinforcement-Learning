@@ -1,3 +1,4 @@
+import random
 from itertools import repeat
 import numpy as np
 
@@ -24,6 +25,7 @@ class EpsilonGreedy(DiscreteExplorator):
         """
         self._exploration_rate = exploration_rate
         if seed is not None:
+            random.seed(seed)
             np.random.seed(seed)
 
     def choose_action(self, action_scores: DiscreteActionScores) -> \
@@ -41,15 +43,15 @@ class EpsilonGreedy(DiscreteExplorator):
     # Private methods
 
     @staticmethod
-    def _explore(action_scores):
-        return np.random.choice(action_scores.actions)
+    def _explore(action_scores: DiscreteActionScores):
+        return random.choice(list(action_scores.keys()))
 
     @staticmethod
     def _choose_action_greedily(action_scores: DiscreteActionScores) ->\
             DiscreteAction:
         """Choose the action with the highest score. If several actions
         have the highest score, select at random among them."""
-        scores = action_scores.scores
+        actions, scores = zip(*action_scores.items())
         max_indices = np.argwhere(np.array(scores) == np.max(scores)).flatten()
         chosen_action_idx = np.random.choice(max_indices)
-        return action_scores.actions[chosen_action_idx]
+        return actions[chosen_action_idx]

@@ -41,7 +41,7 @@ class SGDLinearRegressor(Regressor):
 
         actions, features = zip(*action_features.items())
         scores = self._calculate_scores(np.array(features))
-        return DiscreteActionScores(actions, scores.flatten())
+        return DiscreteActionScores(zip(actions, scores.flatten()))
 
     def _init_w(self, features_dim):
         self._weights = np.ones((features_dim + 1, 1))

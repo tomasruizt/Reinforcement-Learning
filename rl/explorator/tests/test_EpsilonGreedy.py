@@ -1,6 +1,6 @@
 import unittest
 from itertools import repeat
-import numpy
+from operator import itemgetter
 
 from rl.action import DiscreteActionScores, DiscreteAction
 from rl.explorator.epsilon_greedy import EpsilonGreedy
@@ -22,7 +22,7 @@ class EpsilonGreedyTest(unittest.TestCase):
         greedy_action = self._get_greedy_action_of(action_scores)
 
         exploration_only = repeat(1)
-        e_greedy = EpsilonGreedy(exploration_rate=exploration_only, seed=0)
+        e_greedy = EpsilonGreedy(exploration_rate=exploration_only, seed=1)
         chosen_action = e_greedy.choose_action(action_scores)
         chosen_action_two = e_greedy.choose_action(action_scores)
 
@@ -35,20 +35,16 @@ class EpsilonGreedyTest(unittest.TestCase):
                                                     "should not be None."):
             e_greedy.choose_action(None)
 
-    # Private methods
-
     @staticmethod
     def _init_action_scores():
         scores = [0.1, 0.3, 0.1, 0.4]
         action_scores = DiscreteActionScores(
-            actions=[DiscreteAction() for _ in range(len(scores))],
-            scores=scores
+            zip([DiscreteAction() for _ in range(len(scores))], scores)
         )
         return action_scores
 
     @staticmethod
     def _get_greedy_action_of(action_scores: DiscreteActionScores) -> \
             DiscreteAction:
-        highest_score_index = numpy.argmax(action_scores.scores)
-        expected_greedy_action = action_scores.actions[highest_score_index]
-        return expected_greedy_action
+        highest_score_action, _ = max(action_scores.items(), key=itemgetter(1))
+        return highest_score_action

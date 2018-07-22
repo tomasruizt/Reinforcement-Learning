@@ -31,8 +31,8 @@ class DiscreteActionFeatures(dict):
         values should 'numpy.ndarray' of the same length.
         """
         super().__init__(*args, **kwargs)
-        for key, value in self.items():
-            assert isinstance(key, DiscreteAction)
-            assert isinstance(value, numpy.ndarray)
+        for action, features in self.items():
+            assert isinstance(action, DiscreteAction)
+            assert isinstance(features, numpy.ndarray)
         feature_lengths = [len(val) for val in self.values()]
         assert max(feature_lengths) == min(feature_lengths)

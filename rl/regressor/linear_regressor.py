@@ -36,25 +36,12 @@ class SGDLinearRegressor(Regressor):
         scores.
         """
         if self._weights is None:
-            self._init_w(features_dim=len(action_features.features[0]))
+            any_action_feature = next(iter(action_features.values()))
+            self._init_w(features_dim=len(any_action_feature))
 
-        scores = self._calculate_scores(action_features.features)
-        return DiscreteActionScores(action_features.actions, scores.flatten())
-
-    def fit(self, fitting_data: FittingData):
-        if self._weights is None:
-            self._init_w(features_dim=len(fitting_data.variables[0]))
-
-        for x, y in zip(fitting_data.variables, fitting_data.targets):
-            self._single_sample_sgd(x, y)
-
-    # Private methods
-
-    def _single_sample_sgd(self, x: np.ndarray, y: float):
-        y_predicted = self._calculate_scores(x.reshape(1, -1))
-        extended_feature = np.hstack((x, 1))
-        gradient = 2 * (y_predicted-y) * extended_feature.reshape(-1, 1)
-        self._weights -= self._learning_rate * gradient
+        actions, features = zip(*action_features.items())
+        scores = self._calculate_scores(np.array(features))
+        return DiscreteActionScores(actions, scores.flatten())
 
     def _init_w(self, features_dim):
         self._weights = np.ones((features_dim + 1, 1))
@@ -65,3 +52,16 @@ class SGDLinearRegressor(Regressor):
         extended_features = np.hstack((features, beta_intercept))
         scores = extended_features.dot(self._weights)
         return scores
+
+    def fit(self, fitting_data: FittingData):
+        if self._weights is None:
+            self._init_w(features_dim=len(fitting_data.variables[0]))
+
+        for x, y in zip(fitting_data.variables, fitting_data.targets):
+            self._single_sample_sgd(x, y)
+
+    def _single_sample_sgd(self, x: np.ndarray, y: float):
+        y_predicted = self._calculate_scores(x.reshape(1, -1))
+        extended_feature = np.hstack((x, 1))
+        gradient = 2 * (y_predicted-y) * extended_feature.reshape(-1, 1)
+        self._weights -= self._learning_rate * gradient

@@ -1,23 +1,38 @@
-from typing import Sequence
+from typing import List
 
 import numpy
 from rl.action import DiscreteAction
 
 
-class DiscreteActionFeatures:
-    """Container class that assigns a featurized representation to
-    every action."""
+class DiscreteActionFeatures(dict):
+    """
+    A dict-like class that assigns a featurized representation to
+    every action. Keys are actions and values are numpy arrays
+    """
 
-    def __init__(self, actions: Sequence[DiscreteAction],
-                 features: numpy.ndarray):
+    def values(self) -> List[numpy.ndarray]:
+        return list(super().values())
+
+    def features_dimension(self) -> int:
+        any_action_features = next(iter(self.values()))
+        return len(any_action_features)
+
+    def __getitem__(self, k: DiscreteAction) -> numpy.ndarray:
+        assert isinstance(k, DiscreteAction)
+        return super().__getitem__(k)
+
+    def __setitem__(self, key, value):
+        raise NotImplementedError("Its not allowed to modify the action "
+                                  "features.")
+
+    def __init__(self, *args, **kwargs):
         """
-        Initializes the object with the input actions and features.
-        Both inputs must have the same length.
-        :param actions: A sequence of actions of size (A,) where A is
-        the size of the action space.
-        :param features: A numpy array of size (A, D) where D is the
-        size of each action's features.
+        All the keys should be of type 'DiscreteAction'" and all the
+        values should 'numpy.ndarray' of the same length.
         """
-        assert len(actions) == len(features)
-        self.actions = actions
-        self.features = features
+        super().__init__(*args, **kwargs)
+        for key, value in self.items():
+            assert isinstance(key, DiscreteAction)
+            assert isinstance(value, numpy.ndarray)
+        feature_lengths = [len(val) for val in self.values()]
+        assert max(feature_lengths) == min(feature_lengths)

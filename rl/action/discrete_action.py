@@ -4,3 +4,4 @@ class DiscreteAction:
 
     This class is meant to be subclassed.
     """
+    pass
